@@ -16,7 +16,7 @@ class NewsRepository {
     var jsonData = jsonDecode(response.body);
     if (response.statusCode == 200) {
       jsonData['articles'].forEach((element) {
-        if (element['urlToImage'] == null) {
+        if (element['urlToImage'] != null && element['description'] != null) {
           //converting the json data to NewsModel
           NewsModel newsModel = NewsModel(
             author: element['author'],
@@ -29,7 +29,9 @@ class NewsRepository {
           news.add(newsModel);
         }
       });
+      return news;
+    } else {
+      return news;
     }
-    return news;
   }
 }
