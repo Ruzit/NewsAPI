@@ -4,6 +4,7 @@ import 'package:news_api/Shared/loading.dart';
 import 'package:news_api/blocs/news_bloc.dart';
 import 'package:news_api/blocs/news_states.dart';
 import 'package:news_api/models/news_model.dart';
+import 'package:news_api/views/description_page.dart';
 
 class NewsPage extends StatefulWidget {
   const NewsPage({Key? key}) : super(key: key);
@@ -18,8 +19,11 @@ class _NewsPageState extends State<NewsPage> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('News From API'),
-          centerTitle: true,
+          title: const Text(
+            'NewsBloc',
+            style: TextStyle(fontSize: 25),
+          ),
+          // centerTitle: true,
         ),
         body: BlocBuilder<NewsBloc, NewsState>(
           builder: (context, state) {
@@ -38,11 +42,7 @@ class _NewsPageState extends State<NewsPage> {
                 child: Text(error),
               );
             } else {
-              return const Center(
-                child: CircularProgressIndicator(
-                  backgroundColor: Colors.green,
-                ),
-              );
+              return const Loading();
             }
           },
         ),
@@ -62,36 +62,51 @@ class NewsTile extends StatelessWidget {
       shrinkWrap: true,
       itemCount: newsList.length,
       itemBuilder: (context, index) {
-        return Card(
-          margin: const EdgeInsets.all(15),
-          elevation: 8.0,
-          // width: MediaQuery.of(context).size.width,
-          child: Column(
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: Image.network(
-                    newsList[index].imageURl!,
-                    fit: BoxFit.cover,
-                    width: 250,
-                    height: 150,
-                  ),
+        return GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => DescriptionPage(
+                  news: newsList[index],
                 ),
               ),
-              Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                child: Text(
-                  newsList[index].title!,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
+            );
+          },
+          child: Card(
+            margin: const EdgeInsets.all(15),
+            elevation: 8.0,
+            // width: MediaQuery.of(context).size.width,
+            child: Row(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(5),
+                    child: Image.network(
+                      newsList[index].imageURl!,
+                      fit: BoxFit.cover,
+                      width: 100,
+                      height: 100,
+                    ),
                   ),
                 ),
-              ),
-            ],
+                Container(
+                  height: 100,
+                  width: MediaQuery.of(context).size.width * 0.6,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+                  child: Text(
+                    newsList[index].title!,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    overflow: TextOverflow.clip,
+                  ),
+                ),
+              ],
+            ),
           ),
         );
       },
