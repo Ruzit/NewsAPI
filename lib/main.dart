@@ -12,8 +12,20 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(),
+      title: 'News API',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        colorScheme: const ColorScheme.light().copyWith(
+          primary: Colors.white,
+          secondary: Colors.black38,
+        ),
+        scaffoldBackgroundColor: Colors.white,
+        primaryColor: Colors.white,
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Colors.white,
+          foregroundColor: Colors.black,
+        ),
+      ),
       home: const NewsPage(),
     );
   }
