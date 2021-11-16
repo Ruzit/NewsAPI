@@ -39,7 +39,7 @@ class DescriptionPage extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(10),
               child: Text(
-                news.content!,
+                news.description!,
                 style: const TextStyle(
                   fontSize: 16,
                 ),
