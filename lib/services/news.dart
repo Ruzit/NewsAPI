@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:news_api/models/news_model.dart';
 
-class NewsRepositary {
+class NewsRepository {
   //method to fetch the news from api
   Future<List<NewsModel>> fetchNews() async {
     //empty list to store the list of news
